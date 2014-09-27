@@ -222,7 +222,10 @@ NSData *currentImageData;
             [userPhoto setObject:caption forKey:@"Caption"];
             
             // Set the access control list to current user for security purposes
-            //userPhoto.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+            PFACL *postACL = [PFACL ACL];
+            [postACL setPublicReadAccess:YES];
+            [postACL setPublicWriteAccess:YES];
+            userPhoto.ACL = postACL;
             
             PFUser *user = [PFUser currentUser];
             [userPhoto setObject:user forKey:@"user"];
