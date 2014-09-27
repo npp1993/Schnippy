@@ -16,7 +16,7 @@
 #define PADDING 4
 #define THUMBNAIL_COLS 1
 #define THUMBNAIL_WIDTH 200
-#define THUMBNAIL_HEIGHT 705
+#define THUMBNAIL_HEIGHT 75
 
 - (void)didReceiveMemoryWarning
 {
@@ -159,6 +159,7 @@
         // Show image picker
         [self presentViewController:imagePicker animated:YES completion:nil];
     }
+ 
 }
 
 - (void)uploadImage:(NSData *)imageData
@@ -252,18 +253,20 @@
                 }
             }
             
+            
             // Create the buttons necessary for each image in the grid
             for (int i = 0; i < [imageDataArray count]; i++) {
                 PFObject *eachObject = [images objectAtIndex:i];
                 UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
                 UIImage *image = [imageDataArray objectAtIndex:i];
                 [button setImage:image forState:UIControlStateNormal];
-                button.showsTouchWhenHighlighted = NO;
+                button.showsTouchWhenHighlighted = YES;
+                [button addTarget:self action:@selector(buttonTouched:) forControlEvents:UIControlEventTouchUpInside];
                 button.tag = i;
-                button.frame = CGRectMake( PADDING,
-                                          THUMBNAIL_HEIGHT * i + PADDING + PADDING_TOP,
+                button.frame = CGRectMake(0,
+                                          0,
                                           [UIScreen mainScreen].bounds.size.width,
-                                          THUMBNAIL_HEIGHT);
+                                          [UIScreen mainScreen].bounds.size.height);
                 button.imageView.contentMode = UIViewContentModeScaleAspectFill;
                 [button setTitle:[eachObject objectId] forState:UIControlStateReserved];
                 [photoScrollView addSubview:button];
