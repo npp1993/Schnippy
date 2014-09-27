@@ -264,7 +264,7 @@
                 [button addTarget:self action:@selector(buttonTouched:) forControlEvents:UIControlEventTouchUpInside];
                 button.tag = i;
                 button.frame = CGRectMake(0,
-                                          0,
+                                          [UIScreen mainScreen].bounds.size.height*i,
                                           [UIScreen mainScreen].bounds.size.width,
                                           [UIScreen mainScreen].bounds.size.height);
                 button.imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -277,7 +277,7 @@
             if (((float)images.count / THUMBNAIL_COLS) - rows != 0) {
                 rows++;
             }
-            int height = THUMBNAIL_HEIGHT * rows + PADDING * rows + PADDING + PADDING_TOP;
+            int height = [UIScreen mainScreen].bounds.size.height * rows;
             
             photoScrollView.contentSize = CGSizeMake(self.view.frame.size.width, height);
             photoScrollView.clipsToBounds = YES;
@@ -352,14 +352,8 @@
     // Dismiss controller
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-    // Resize image
-    UIGraphicsBeginImageContext(CGSizeMake(640, 960));
-    [image drawInRect: CGRectMake(0, 0, 640, 960)];
-    UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();   
-    
     // Upload image
-    NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.05f);
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.05f);
     [self uploadImage:imageData];
 }
 
