@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		143CD4D319D735F700672CFB /* minus-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 143CD4D119D735F700672CFB /* minus-50.png */; };
+		143CD4D419D735F700672CFB /* plus-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 143CD4D219D735F700672CFB /* plus-50.png */; };
 		1ACF468F1831949800E82138 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ACF468C1831949800E82138 /* Default-568h@2x.png */; };
 		1ACF46901831949800E82138 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ACF468D1831949800E82138 /* Default.png */; };
 		1ACF46911831949800E82138 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ACF468E1831949800E82138 /* Default@2x.png */; };
@@ -34,6 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		143CD4D119D735F700672CFB /* minus-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "minus-50.png"; path = "SavingImagesTutorial/minus-50.png"; sourceTree = "<group>"; };
+		143CD4D219D735F700672CFB /* plus-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-50.png"; path = "SavingImagesTutorial/plus-50.png"; sourceTree = "<group>"; };
 		1ACF468C1831949800E82138 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		1ACF468D1831949800E82138 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		1ACF468E1831949800E82138 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -93,6 +97,8 @@
 		8F0244F914D527F20021CEAA = {
 			isa = PBXGroup;
 			children = (
+				143CD4D119D735F700672CFB /* minus-50.png */,
+				143CD4D219D735F700672CFB /* plus-50.png */,
 				8F02450E14D527F20021CEAA /* SavingImagesTutorial */,
 				8F02450714D527F20021CEAA /* Frameworks */,
 				8F02450514D527F20021CEAA /* Products */,
@@ -222,6 +228,8 @@
 				8F02451F14D527F20021CEAA /* ViewController.xib in Resources */,
 				8FE1145B14D556F400E88C43 /* PhotoDetailViewController.xib in Resources */,
 				1ACF468F1831949800E82138 /* Default-568h@2x.png in Resources */,
+				143CD4D319D735F700672CFB /* minus-50.png in Resources */,
+				143CD4D419D735F700672CFB /* plus-50.png in Resources */,
 				8F9C3D3214D7F468005EFD16 /* 37x-Checkmark.png in Resources */,
 				1ACF46901831949800E82138 /* Default.png in Resources */,
 			);

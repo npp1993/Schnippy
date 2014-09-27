@@ -52,7 +52,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"UserPhoto"];
     PFUser *user = [PFUser currentUser];
     [query whereKey:@"user" equalTo:user];
-    [query orderByAscending:@"createdAt"];
+    [query orderByDescending:@"rating"];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -75,16 +75,17 @@
             NSLog(@"Successfully retrieved %d photos.", objects.count);
             
             // Retrieve existing objectIDs
-
+            allImages = [NSMutableArray new];
             NSMutableArray *oldCompareObjectIDArray = [NSMutableArray array];
             for (UIView *view in [photoScrollView subviews]) {
                 if ([view isKindOfClass:[UIButton class]]) {
                     UIButton *eachButton = (UIButton *)view;
-                    [oldCompareObjectIDArray addObject:[eachButton titleForState:UIControlStateReserved]];
+                    //[oldCompareObjectIDArray addObject:[eachButton titleForState:UIControlStateReserved]];
                 }
             }
                         
             NSMutableArray *oldCompareObjectIDArray2 = [NSMutableArray arrayWithArray:oldCompareObjectIDArray];
+            
             
             // If there are photos, we start extracting the data
             // Save a list of object IDs while extracting this data
@@ -125,6 +126,9 @@
                     for (NSNumber *index in listOfToRemove){                        
                         [allImages removeObjectAtIndex:[index intValue]];
                     }
+                    
+                    
+                    
                 }
             }
             
@@ -273,7 +277,7 @@
                 UIImage *image = [imageDataArray objectAtIndex:i];
                 [button setImage:image forState:UIControlStateNormal];
                 button.showsTouchWhenHighlighted = YES;
-                button.tag = i;
+                button.tag = -1;
                 button.frame = CGRectMake(0,
                                           [UIScreen mainScreen].bounds.size.height*i*aspectRatio,
                                           [UIScreen mainScreen].bounds.size.width,
@@ -281,6 +285,68 @@
                 button.imageView.contentMode = UIViewContentModeScaleAspectFill;
                 [button setTitle:[eachObject objectId] forState:UIControlStateReserved];
                 [photoScrollView addSubview:button];
+                
+                double padding = [UIScreen mainScreen].bounds.size.height*aspectRatio*.24;
+                UILabel *countLabel = [UILabel new];
+                
+                //countLabel.text = (NSString*)[eachObject valueForKey:@"rating"];
+                //NSLog(@"%@",[[eachObject valueForKey:@"rating"] class]);
+                NSDecimalNumber *ratingValue = [eachObject valueForKey:@"rating"];
+                countLabel.tag = i;
+                countLabel.text = [ratingValue stringValue];
+                countLabel.textAlignment = UITextAlignmentCenter;
+                countLabel.textColor = [UIColor whiteColor];
+                countLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+                countLabel.frame = CGRectMake([UIScreen mainScreen].bounds.size.width*.83,
+                                              [UIScreen mainScreen].bounds.size.height*i*aspectRatio+padding,
+                                              [UIScreen mainScreen].bounds.size.width*.14,
+                                              [UIScreen mainScreen].bounds.size.height*aspectRatio*.425);
+                [photoScrollView addSubview:countLabel];
+
+                
+                padding = [UIScreen mainScreen].bounds.size.height*aspectRatio*.3;
+                UIButton *upButton= [UIButton buttonWithType:UIButtonTypeCustom];
+                [upButton setImage:[UIImage imageNamed:@"plus-50.png"] forState:UIControlStateNormal];
+                upButton.showsTouchWhenHighlighted = YES;
+                upButton.tag = i;
+                upButton.frame = CGRectMake([UIScreen mainScreen].bounds.size.width*.85,
+                                          [UIScreen mainScreen].bounds.size.height*i*aspectRatio+padding,
+                                          [UIScreen mainScreen].bounds.size.width*.1,
+                                          [UIScreen mainScreen].bounds.size.height*aspectRatio*.1);
+                upButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
+                upButton.titleLabel.shadowColor = [UIColor greenColor];
+                upButton.layer.shadowColor = [[UIColor greenColor]CGColor];
+                upButton.layer.shadowOpacity = 1;
+                upButton.layer.shadowRadius = 12;
+                [upButton setTitle:[eachObject objectId] forState:UIControlStateReserved];
+                [upButton addTarget:self action:@selector(upButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+                
+                //Lets see if the current user has already rated the photo
+                
+                
+                
+                [photoScrollView addSubview:upButton];
+                
+                padding = [UIScreen mainScreen].bounds.size.height*aspectRatio*.5;
+                UIButton *downButton= [UIButton buttonWithType:UIButtonTypeCustom];
+                downButton.layer.shadowColor = [[UIColor redColor]CGColor];
+                downButton.layer.shadowOpacity = 1;
+                downButton.layer.shadowRadius = 12;
+                [downButton setImage:[UIImage imageNamed:@"minus-50.png"] forState:UIControlStateNormal];
+                downButton.showsTouchWhenHighlighted = YES;
+                downButton.tag = i;
+                downButton.frame = CGRectMake([UIScreen mainScreen].bounds.size.width*.85,
+                                            [UIScreen mainScreen].bounds.size.height*i*aspectRatio+padding,
+                                            [UIScreen mainScreen].bounds.size.width*.1,
+                                            [UIScreen mainScreen].bounds.size.height*aspectRatio*.1);
+                downButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
+                
+                [downButton setTitle:[eachObject objectId] forState:UIControlStateReserved];
+                [downButton addTarget:self action:@selector(downButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+                
+                [photoScrollView addSubview:downButton];
+
+
             }
             
             // Size the grid accordingly
@@ -292,20 +358,72 @@
     });
 }
 
-- (void)buttonTouched:(id)sender {
+- (void)upButtonTouched:(id)sender {
     // When picture is touched, open a viewcontroller with the image
     PFObject *theObject = (PFObject *)[allImages objectAtIndex:[sender tag]];
-    PFFile *theImage = [theObject objectForKey:@"imageFile"];
+
+    for (UIView *view in [photoScrollView subviews]) {
+        if ([view isKindOfClass:[UILabel class]]) {
+            UILabel *label = (UILabel *)view;
+            if (label.tag == [sender tag]) {
+                NSDecimalNumber *rating = [theObject valueForKey:@"rating"];
+                NSDecimalNumber *numOne   = [NSDecimalNumber numberWithFloat:1.0];
+                rating = [rating decimalNumberByAdding:numOne];
+                label.text = [rating stringValue];
+            }
+        }
+    }
+                                   
+                                   
+    [theObject incrementKey:@"rating"];
+    [theObject saveInBackground];
     
-    NSData *imageData;
-    imageData = [theImage getData];
-    UIImage *selectedPhoto = [UIImage imageWithData:imageData];
-    PhotoDetailViewController *pdvc = [[PhotoDetailViewController alloc] init];
+    UIButton *senderButton = sender;
+    senderButton.enabled = 0;
+    senderButton.backgroundColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:0.2];
     
-    pdvc.selectedImage = selectedPhoto;
-    [self presentViewController:pdvc animated:YES completion:nil];
+    for (UIView *view in [photoScrollView subviews]) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            UIButton *button = (UIButton *)view;
+            if (button.tag == [sender tag]) {
+                button.enabled = false;
+            }
+        }
+    }
 }
 
+- (void)downButtonTouched:(id)sender {
+    // When picture is touched, open a viewcontroller with the image
+    PFObject *theObject = (PFObject *)[allImages objectAtIndex:[sender tag]];
+
+    for (UIView *view in [photoScrollView subviews]) {
+        if ([view isKindOfClass:[UILabel class]]) {
+            UILabel *label = (UILabel *)view;
+            if (label.tag == [sender tag]) {
+                NSDecimalNumber *rating = [theObject valueForKey:@"rating"];
+                NSDecimalNumber *numOne   = [NSDecimalNumber numberWithFloat:-1.0];
+                rating = [rating decimalNumberByAdding:numOne];
+                label.text = [rating stringValue];
+            }
+        }
+    }
+    
+    [theObject incrementKey:@"rating" byAmount:[NSNumber numberWithInt:-1]];
+    [theObject saveInBackground];
+    
+    UIButton *senderButton = sender;
+    senderButton.enabled = 0;
+    senderButton.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:0.2];
+    
+    for (UIView *view in [photoScrollView subviews]) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            UIButton *button = (UIButton *)view;
+            if (button.tag == [sender tag]) {
+                button.enabled = false;
+            }
+        }
+    }
+}
 
 #pragma mark - View lifecycle
 
