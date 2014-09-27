@@ -30,22 +30,22 @@
     
     // Simple way to create a user or log in the existing user
     // For your app, you will probably want to present your own login screen
-    PFUser *currentUser = [PFUser currentUser];
-
-    if (!currentUser) {
+        NSString *uuid = [[NSUUID UUID] UUIDString];
+        PFUser *currentUser = [PFUser currentUser];
+        if (!currentUser) {
         // Dummy username and password
         PFUser *user = [PFUser user];
-        user.username = @"nate";
+        //user.username = [uuid substringToIndex:5];
+        user.username = @"hello2";
         user.password = @"password";
-        user.email = @"Matt@example.com";
         
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (error) {
                 // Assume the error is because the user already existed.
-                [PFUser logInWithUsername:@"Matt" password:@"password"];
+                [PFUser logInWithUsername:@"Rick" password:@"password"];
             }
         }];
-    }
+        }
     
     self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
     self.window.rootViewController = self.viewController;

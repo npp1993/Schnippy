@@ -59,7 +59,6 @@ NSData *currentImageData;
     
     PFQuery *query = [PFQuery queryWithClassName:@"UserPhoto"];
     PFUser *user = [PFUser currentUser];
-    [query whereKey:@"user" equalTo:user];
     [query orderByDescending:@"rating"];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -223,7 +222,7 @@ NSData *currentImageData;
             [userPhoto setObject:caption forKey:@"Caption"];
             
             // Set the access control list to current user for security purposes
-            userPhoto.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+            //userPhoto.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
             
             PFUser *user = [PFUser currentUser];
             [userPhoto setObject:user forKey:@"user"];
@@ -315,7 +314,7 @@ NSData *currentImageData;
                 padding = [UIScreen mainScreen].bounds.size.height*aspectRatio*.80;
                 UILabel *captionLabel = [UILabel new];
                 NSString *newCaption = [eachObject valueForKey:@"Caption"];
-                captionLabel.tag = i;
+                captionLabel.tag = -2;
                 captionLabel.numberOfLines = 0;
                 captionLabel.lineBreakMode = NSLineBreakByWordWrapping;
                 captionLabel.text = newCaption;
