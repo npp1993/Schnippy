@@ -320,12 +320,8 @@
                 upButton.layer.shadowRadius = 12;
                 [upButton setTitle:[eachObject objectId] forState:UIControlStateReserved];
                 [upButton addTarget:self action:@selector(upButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+
                 
-                //Lets see if the current user has already rated the photo
-                
-                
-                
-                [photoScrollView addSubview:upButton];
                 
                 padding = [UIScreen mainScreen].bounds.size.height*aspectRatio*.5;
                 UIButton *downButton= [UIButton buttonWithType:UIButtonTypeCustom];
@@ -344,6 +340,31 @@
                 [downButton setTitle:[eachObject objectId] forState:UIControlStateReserved];
                 [downButton addTarget:self action:@selector(downButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
                 
+                
+                //Lets see if the current user has already upvoted the photo
+                NSArray *upVotes = [eachObject valueForKey:@"UserUpvoted"];
+                for (NSString  *user in upVotes) {
+                    NSLog(@"%@",user);
+                    NSLog(@"%@",[PFUser currentUser].username);
+                    if (![user compare:[PFUser currentUser].username]) {
+                        [upButton setEnabled:0];
+                        [downButton setEnabled:0];
+                        upButton.backgroundColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:0.2];
+                    }
+                }
+                
+                NSArray *downVotes = [eachObject valueForKey:@"UserDownvoted"];
+                for (NSString  *user in downVotes) {
+                    NSLog(@"%@",user);
+                    NSLog(@"%@",[PFUser currentUser].username);
+                    if (![user compare:[PFUser currentUser].username]) {
+                        [upButton setEnabled:0];
+                        [downButton setEnabled:0];
+                        downButton.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:0.2];
+                    }
+                }
+                
+                [photoScrollView addSubview:upButton];
                 [photoScrollView addSubview:downButton];
 
 
@@ -354,6 +375,7 @@
             
             photoScrollView.contentSize = CGSizeMake(self.view.frame.size.width, height);
             photoScrollView.clipsToBounds = YES;
+            
         });
     });
 }
@@ -390,6 +412,9 @@
             }
         }
     }
+    
+    [theObject addUniqueObject:[PFUser currentUser].username forKey:@"UserUpvoted"];
+    [theObject saveInBackground];
 }
 
 - (void)downButtonTouched:(id)sender {
@@ -423,6 +448,9 @@
             }
         }
     }
+    
+    [theObject addUniqueObject:[PFUser currentUser].username forKey:@"UserDownvoted"];
+    [theObject saveInBackground];
 }
 
 #pragma mark - View lifecycle
