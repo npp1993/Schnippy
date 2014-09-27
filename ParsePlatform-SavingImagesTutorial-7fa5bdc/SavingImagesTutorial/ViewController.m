@@ -15,7 +15,7 @@
 #define PADDING_TOP 0 // For placing the images nicely in the grid
 #define PADDING 4
 #define THUMBNAIL_COLS 1
-#define THUMBNAIL_WIDTH 75
+#define THUMBNAIL_WIDTH 200
 #define THUMBNAIL_HEIGHT 75
 
 - (void)didReceiveMemoryWarning
