@@ -537,16 +537,17 @@ NSData *currentImageData;
     // Dismiss controller
     [picker dismissViewControllerAnimated:YES completion:nil];
     
+    
     // Upload image
     NSData *imageData = UIImageJPEGRepresentation(image, 0.05f);
-    
+    currentImageData = imageData;
     //UI AlertViewTesting
     UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Caption" message:@"Add a photo caption..." delegate:self cancelButtonTitle:@"No" otherButtonTitles: nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [alert addButtonWithTitle:@"Add"];
     [alert show];
     
-    currentImageData = imageData;
+
 }
 
 #pragma mark -
