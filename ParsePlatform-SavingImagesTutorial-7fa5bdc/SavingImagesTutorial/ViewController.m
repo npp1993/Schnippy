@@ -159,39 +159,7 @@
         // Show image picker
         [self presentViewController:imagePicker animated:YES completion:nil];
     }
-    else{
-        // Device has no camera
-        UIImage *image;
-        int r = arc4random() % 5;
-        switch (r) {
-            case 0:
-                image = [UIImage imageNamed:@"ParseLogo.jpg"];
-                break;
-            case 1:
-                image = [UIImage imageNamed:@"Crowd.jpg"];
-                break;
-            case 2:
-                image = [UIImage imageNamed:@"Desert.jpg"];
-                break;
-            case 3:
-                image = [UIImage imageNamed:@"Lime.jpg"];
-                break;
-            case 4:
-                image = [UIImage imageNamed:@"Sunflowers.jpg"];
-                break;
-            default:
-                break;
-        }
-        
-        // Resize image
-        UIGraphicsBeginImageContext(CGSizeMake(640, 960));
-        [image drawInRect: CGRectMake(0, 0, 640, 960)];
-        UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();   
-        
-        NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.05f);
-        [self uploadImage:imageData];
-    }
+ 
 }
 
 - (void)uploadImage:(NSData *)imageData
@@ -285,6 +253,7 @@
                 }
             }
             
+            
             // Create the buttons necessary for each image in the grid
             for (int i = 0; i < [imageDataArray count]; i++) {
                 PFObject *eachObject = [images objectAtIndex:i];
@@ -294,10 +263,10 @@
                 button.showsTouchWhenHighlighted = YES;
                 [button addTarget:self action:@selector(buttonTouched:) forControlEvents:UIControlEventTouchUpInside];
                 button.tag = i;
-                button.frame = CGRectMake(THUMBNAIL_WIDTH * (i % THUMBNAIL_COLS) + PADDING * (i % THUMBNAIL_COLS) + PADDING,
-                                          THUMBNAIL_HEIGHT * (i / THUMBNAIL_COLS) + PADDING * (i / THUMBNAIL_COLS) + PADDING + PADDING_TOP,
-                                          THUMBNAIL_WIDTH,
-                                          THUMBNAIL_HEIGHT);
+                button.frame = CGRectMake(0,
+                                          0,
+                                          [UIScreen mainScreen].bounds.size.width,
+                                          [UIScreen mainScreen].bounds.size.height);
                 button.imageView.contentMode = UIViewContentModeScaleAspectFill;
                 [button setTitle:[eachObject objectId] forState:UIControlStateReserved];
                 [photoScrollView addSubview:button];
