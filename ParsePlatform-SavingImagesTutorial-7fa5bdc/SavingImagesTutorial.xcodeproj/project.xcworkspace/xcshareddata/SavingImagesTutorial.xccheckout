@@ -10,22 +10,26 @@
 	<string>SavingImagesTutorial</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>B7C353CEED9022D53FE4366C3AC430F09CF4B2D3</key>
+		<string>https://github.com/npp1993/Schnippy.git</string>
 		<key>EA303E64-5B8E-458C-AA2B-4BFEED6B8560</key>
 		<string>ssh://github.com/ParsePlatform/SavingImagesTutorial.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>SavingImagesTutorial.xcodeproj/project.xcworkspace</string>
+	<string>ParsePlatform-SavingImagesTutorial-7fa5bdc/SavingImagesTutorial.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>B7C353CEED9022D53FE4366C3AC430F09CF4B2D3</key>
+		<string>../../..</string>
 		<key>EA303E64-5B8E-458C-AA2B-4BFEED6B8560</key>
-		<string>../..</string>
+		<string>../../../../SavingImagesTutorial</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/ParsePlatform/SavingImagesTutorial.git</string>
+	<string>https://github.com/npp1993/Schnippy.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>EA303E64-5B8E-458C-AA2B-4BFEED6B8560</string>
+	<string>B7C353CEED9022D53FE4366C3AC430F09CF4B2D3</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -35,6 +39,14 @@
 			<string>EA303E64-5B8E-458C-AA2B-4BFEED6B8560</string>
 			<key>IDESourceControlWCCName</key>
 			<string>SavingImagesTutorial</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B7C353CEED9022D53FE4366C3AC430F09CF4B2D3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Schnippy</string>
 		</dict>
 	</array>
 </dict>
