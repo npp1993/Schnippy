@@ -25,5 +25,6 @@
 - (void)uploadImage:(NSData *)imageData;
 - (void)setUpImages:(NSArray *)images;
 - (void)buttonTouched:(id)sender;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 
 @end

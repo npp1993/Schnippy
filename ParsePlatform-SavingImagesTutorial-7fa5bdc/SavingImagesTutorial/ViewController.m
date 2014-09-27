@@ -18,12 +18,23 @@
 #define THUMBNAIL_WIDTH 200
 #define THUMBNAIL_HEIGHT 75
 
+@synthesize navigationBar;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
 }
 
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    allImages = [[NSMutableArray alloc] init];
+    [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationBar.shadowImage = [UIImage new];
+    self.navigationBar.translucent = YES;
+    [self refresh:NULL];
+}
 #pragma mark - Main methods
 
 - (IBAction)refresh:(id)sender
@@ -255,29 +266,25 @@
             
             
             // Create the buttons necessary for each image in the grid
+            double aspectRatio = .65;
             for (int i = 0; i < [imageDataArray count]; i++) {
                 PFObject *eachObject = [images objectAtIndex:i];
                 UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
                 UIImage *image = [imageDataArray objectAtIndex:i];
                 [button setImage:image forState:UIControlStateNormal];
                 button.showsTouchWhenHighlighted = YES;
-                [button addTarget:self action:@selector(buttonTouched:) forControlEvents:UIControlEventTouchUpInside];
                 button.tag = i;
                 button.frame = CGRectMake(0,
-                                          [UIScreen mainScreen].bounds.size.height*i,
+                                          [UIScreen mainScreen].bounds.size.height*i*aspectRatio,
                                           [UIScreen mainScreen].bounds.size.width,
-                                          [UIScreen mainScreen].bounds.size.height);
+                                          [UIScreen mainScreen].bounds.size.height*aspectRatio);
                 button.imageView.contentMode = UIViewContentModeScaleAspectFill;
                 [button setTitle:[eachObject objectId] forState:UIControlStateReserved];
                 [photoScrollView addSubview:button];
             }
             
             // Size the grid accordingly
-            int rows = images.count / THUMBNAIL_COLS;
-            if (((float)images.count / THUMBNAIL_COLS) - rows != 0) {
-                rows++;
-            }
-            int height = [UIScreen mainScreen].bounds.size.height * rows;
+            int height = [UIScreen mainScreen].bounds.size.height*aspectRatio * [imageDataArray count];
             
             photoScrollView.contentSize = CGSizeMake(self.view.frame.size.width, height);
             photoScrollView.clipsToBounds = YES;
@@ -301,12 +308,6 @@
 
 
 #pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    allImages = [[NSMutableArray alloc] init];
-}
 
 - (void)viewDidUnload
 {
