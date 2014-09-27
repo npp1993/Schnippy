@@ -19,6 +19,9 @@
 #define THUMBNAIL_HEIGHT 75
 
 @synthesize navigationBar;
+
+NSString *photoCaptionText;
+NSData *currentImageData;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -28,6 +31,7 @@
 
 - (void)viewDidLoad
 {
+    photoCaptionText = @"is this working...";
     [super viewDidLoad];
     allImages = [[NSMutableArray alloc] init];
     [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
@@ -39,6 +43,10 @@
 
 - (IBAction)refresh:(id)sender
 {
+    
+
+    
+    
     NSLog(@"Showing Refresh HUD");
     refreshHUD = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:refreshHUD];
@@ -177,7 +185,7 @@
  
 }
 
-- (void)uploadImage:(NSData *)imageData
+- (void)uploadImage:(NSData *)imageData withCaption: (NSString *) caption
 {
     PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:imageData];
     
@@ -212,6 +220,7 @@
             // Create a PFObject around a PFFile and associate it with the current user
             PFObject *userPhoto = [PFObject objectWithClassName:@"UserPhoto"];
             [userPhoto setObject:imageFile forKey:@"imageFile"];
+            [userPhoto setObject:caption forKey:@"Caption"];
             
             // Set the access control list to current user for security purposes
             userPhoto.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
@@ -302,6 +311,21 @@
                                               [UIScreen mainScreen].bounds.size.width*.14,
                                               [UIScreen mainScreen].bounds.size.height*aspectRatio*.425);
                 [photoScrollView addSubview:countLabel];
+                
+                padding = [UIScreen mainScreen].bounds.size.height*aspectRatio*.80;
+                UILabel *captionLabel = [UILabel new];
+                NSString *newCaption = [eachObject valueForKey:@"Caption"];
+                captionLabel.tag = i;
+                captionLabel.numberOfLines = 0;
+                captionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+                captionLabel.text = newCaption;
+                captionLabel.textAlignment = UITextAlignmentCenter;
+                captionLabel.textColor = [UIColor whiteColor];
+                captionLabel.frame = CGRectMake([UIScreen mainScreen].bounds.size.width*0,
+                                              [UIScreen mainScreen].bounds.size.height*i*aspectRatio+padding,
+                                              [UIScreen mainScreen].bounds.size.width,
+                                              [UIScreen mainScreen].bounds.size.height*aspectRatio*.2);
+                [photoScrollView addSubview:captionLabel];
 
                 
                 padding = [UIScreen mainScreen].bounds.size.height*aspectRatio*.3;
@@ -344,8 +368,8 @@
                 //Lets see if the current user has already upvoted the photo
                 NSArray *upVotes = [eachObject valueForKey:@"UserUpvoted"];
                 for (NSString  *user in upVotes) {
-                    NSLog(@"%@",user);
-                    NSLog(@"%@",[PFUser currentUser].username);
+                    //NSLog(@"%@",user);
+                    //NSLog(@"%@",[PFUser currentUser].username);
                     if (![user compare:[PFUser currentUser].username]) {
                         [upButton setEnabled:0];
                         [downButton setEnabled:0];
@@ -355,8 +379,8 @@
                 
                 NSArray *downVotes = [eachObject valueForKey:@"UserDownvoted"];
                 for (NSString  *user in downVotes) {
-                    NSLog(@"%@",user);
-                    NSLog(@"%@",[PFUser currentUser].username);
+                    //NSLog(@"%@",user);
+                    //NSLog(@"%@",[PFUser currentUser].username);
                     if (![user compare:[PFUser currentUser].username]) {
                         [upButton setEnabled:0];
                         [downButton setEnabled:0];
@@ -453,6 +477,20 @@
     [theObject saveInBackground];
 }
 
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"Button Index =%ld",buttonIndex);
+    if (buttonIndex == 1) {  //Add
+        UITextField *caption = [alertView textFieldAtIndex:0];
+        NSLog(@"Caption: %@", caption.text);
+        photoCaptionText = caption.text;
+        [self uploadImage:currentImageData withCaption:photoCaptionText];
+    }else{
+        photoCaptionText = @"";
+        [self uploadImage:currentImageData withCaption:photoCaptionText];
+    }
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidUnload
@@ -501,7 +539,14 @@
     
     // Upload image
     NSData *imageData = UIImageJPEGRepresentation(image, 0.05f);
-    [self uploadImage:imageData];
+    
+    //UI AlertViewTesting
+    UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Caption" message:@"Add a photo caption..." delegate:self cancelButtonTitle:@"No" otherButtonTitles: nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert addButtonWithTitle:@"Add"];
+    [alert show];
+    
+    currentImageData = imageData;
 }
 
 #pragma mark -
