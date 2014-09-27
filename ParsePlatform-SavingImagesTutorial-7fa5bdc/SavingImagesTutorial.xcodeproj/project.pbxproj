@@ -27,11 +27,6 @@
 		8F02453214D52E380021CEAA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F02452B14D52E380021CEAA /* QuartzCore.framework */; };
 		8F02453314D52E380021CEAA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F02452C14D52E380021CEAA /* Security.framework */; };
 		8F02453414D52E380021CEAA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F02452D14D52E380021CEAA /* SystemConfiguration.framework */; };
-		8F3E8AF914F6952600CA169E /* ParseLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8F3E8AF814F6952600CA169E /* ParseLogo.jpg */; };
-		8F52189614D7D9BE009AB274 /* Crowd.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8F52189214D7D9BE009AB274 /* Crowd.jpg */; };
-		8F52189714D7D9BE009AB274 /* Desert.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8F52189314D7D9BE009AB274 /* Desert.jpg */; };
-		8F52189814D7D9BE009AB274 /* Lime.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8F52189414D7D9BE009AB274 /* Lime.jpg */; };
-		8F52189914D7D9BE009AB274 /* Sunflowers.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8F52189514D7D9BE009AB274 /* Sunflowers.jpg */; };
 		8F52189E14D7DECB009AB274 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F52189D14D7DECB009AB274 /* MBProgressHUD.m */; };
 		8F9C3D3214D7F468005EFD16 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F9C3D3114D7F468005EFD16 /* 37x-Checkmark.png */; };
 		8FE1145A14D556F400E88C43 /* PhotoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE1145814D556F400E88C43 /* PhotoDetailViewController.m */; };
@@ -64,11 +59,6 @@
 		8F02452B14D52E380021CEAA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8F02452C14D52E380021CEAA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8F02452D14D52E380021CEAA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		8F3E8AF814F6952600CA169E /* ParseLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ParseLogo.jpg; sourceTree = "<group>"; };
-		8F52189214D7D9BE009AB274 /* Crowd.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Crowd.jpg; sourceTree = "<group>"; };
-		8F52189314D7D9BE009AB274 /* Desert.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Desert.jpg; sourceTree = "<group>"; };
-		8F52189414D7D9BE009AB274 /* Lime.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Lime.jpg; sourceTree = "<group>"; };
-		8F52189514D7D9BE009AB274 /* Sunflowers.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Sunflowers.jpg; sourceTree = "<group>"; };
 		8F52189C14D7DECB009AB274 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		8F52189D14D7DECB009AB274 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		8F9C3D3114D7F468005EFD16 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
@@ -156,14 +146,9 @@
 		8F02450F14D527F20021CEAA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8F3E8AF814F6952600CA169E /* ParseLogo.jpg */,
 				1ACF468C1831949800E82138 /* Default-568h@2x.png */,
 				1ACF468D1831949800E82138 /* Default.png */,
 				1ACF468E1831949800E82138 /* Default@2x.png */,
-				8F52189214D7D9BE009AB274 /* Crowd.jpg */,
-				8F52189314D7D9BE009AB274 /* Desert.jpg */,
-				8F52189414D7D9BE009AB274 /* Lime.jpg */,
-				8F52189514D7D9BE009AB274 /* Sunflowers.jpg */,
 				8F9C3D3114D7F468005EFD16 /* 37x-Checkmark.png */,
 				8F02451014D527F20021CEAA /* SavingImagesTutorial-Info.plist */,
 				8F02451114D527F20021CEAA /* InfoPlist.strings */,
@@ -237,12 +222,7 @@
 				8F02451F14D527F20021CEAA /* ViewController.xib in Resources */,
 				8FE1145B14D556F400E88C43 /* PhotoDetailViewController.xib in Resources */,
 				1ACF468F1831949800E82138 /* Default-568h@2x.png in Resources */,
-				8F52189614D7D9BE009AB274 /* Crowd.jpg in Resources */,
-				8F52189714D7D9BE009AB274 /* Desert.jpg in Resources */,
-				8F52189814D7D9BE009AB274 /* Lime.jpg in Resources */,
-				8F52189914D7D9BE009AB274 /* Sunflowers.jpg in Resources */,
 				8F9C3D3214D7F468005EFD16 /* 37x-Checkmark.png in Resources */,
-				8F3E8AF914F6952600CA169E /* ParseLogo.jpg in Resources */,
 				1ACF46901831949800E82138 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
